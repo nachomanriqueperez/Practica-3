@@ -74,12 +74,70 @@ describe("GameBoard", function(){
 			board = new GameBoard();
 		});
 
+	it("GameBoard.remove", function(){
+		var objetoPrueba = {};
+
+		spyOn(board,"remove").andCallThrough();
+		spyOn(board,"resetRemoved").andCallThrough();
+		spyOn(board,"finalizeRemoved").andCallThrough();
+
+		board.add(objetoPrueba);
+		board.resetRemoved()
+		board.remove(objetoPrueba);
+
+		expect(board.removed[0]).toBe(objetoPrueba);
+		expect(board.resetRemoved).toHaveBeenCalled();
+
+		board.finalizeRemoved();
+		expect(board.objects.length).toBe(0);
+		board.resetRemoved();
+		expect(board.removed.length).toBe(0);
+		expect(board.finalizeRemoved).toHaveBeenCalled();
+
+	});
 
 	it("GameBoard.add()", function(){
 		
 		var objetoVacio= {};
 		var objeto2= board.add(objetoVacio);
-		expect(board.objects[0]).toBe(objetoVacio); 
-		expect(objetoVacio.board).toBe(board);
+		expect(board.objects[0]).toBe(objetoVacio);
+		expect(objeto2.board).toBe(board);
 	});
+
+	it("GameBoard.overlap()", function(){
+
+		var objReferencia = {x:0, y:0, w:5, h:10};
+                var objColision = {x:0, y:2, w:10, h:10};
+		var objNoColision = {x:20, y:20 , w:5 , h:5};
+
+		expect(board.overlap(objReferencia,objColision)).toEqual(true);
+		expect(board.overlap(objReferencia,objNoColision)).toEqual(false);
+	});
+
+	it("GameBoard.collide()", function(){
+
+		var objReferencia = {x:0, y:0, w:5, h:10, type:0};
+                var objColision = {x:0, y:2, w:10, h:10, type:2};
+		var objNoColision = {x:20, y:20 , w:5 , h:5, type:4};
+
+		board.add(objReferencia);
+		board.add(objColision);
+		board.add(objNoColision);
+
+		expect(board.collide(objReferencia,objColision.type)).toBe(objColision);
+		expect(board.collide(objReferencia,objNoColision.type)).toBe(false);
+
+	});
+
+	it("GameBoard.iterate()", function(){
+				
+		var Obj1 = {};
+		spyOn(board,"step").andCallThrough();
+		board.iterate('step',Obj1);
+		expect(board.add).toHaveBeenCalled();
+		//expect(Obj1.board).toBe(board);
+		//expect(board.objects[0]).toBe(Obj1);
+		
+	});
+
 });
