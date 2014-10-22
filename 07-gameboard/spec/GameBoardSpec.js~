@@ -80,6 +80,6 @@ describe("GameBoard", function(){
 		var objetoVacio= {};
 		var objeto2= board.add(objetoVacio);
 		expect(board.objects[0]).toBe(objetoVacio); 
-		expect(objeto2.board).toBe(board);
+		expect(objetoVacio.board).toBe(board);
 	});
 });
