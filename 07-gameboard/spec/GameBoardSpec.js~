@@ -129,14 +129,21 @@ describe("GameBoard", function(){
 
 	});
 
-	it("GameBoard.iterate()", function(){
+	it("GameBoard.step()", function(){
 				
-		var Obj1 = {};
-		spyOn(board,"step").andCallThrough();
-		board.iterate('step',Obj1);
-		expect(board.add).toHaveBeenCalled();
-		//expect(Obj1.board).toBe(board);
-		//expect(board.objects[0]).toBe(Obj1);
+		var dt = {};
+		spyOn(board,"step");
+		board.step(dt);
+		expect(board.step).toHaveBeenCalled();
+		
+	});
+
+	it("GameBoard.step()", function(){
+				
+		var obj1 = {};
+		spyOn(board,"draw");
+		board.draw(obj1);
+		expect(board.draw).toHaveBeenCalled();
 		
 	});
 
