@@ -1,3 +1,4 @@
+//var _ = required("underscore");
 /*
 
   En el anterior prototipo (06-player), el objeto Game permite
@@ -74,6 +75,8 @@ describe("GameBoard", function(){
 			board = new GameBoard();
 		});
 
+	
+
 	it("GameBoard.remove", function(){
 		var objetoPrueba = {};
 
@@ -132,19 +135,68 @@ describe("GameBoard", function(){
 	it("GameBoard.step()", function(){
 				
 		var dt = {};
-		spyOn(board,"step");
+
+		spyOn(board,"resetRemoved");
+		spyOn(board,"iterate");
+		spyOn(board,"finalizeRemoved");
+
 		board.step(dt);
-		expect(board.step).toHaveBeenCalled();
+
+		expect(board.resetRemoved).toHaveBeenCalled();
+		expect(board.iterate).toHaveBeenCalled();
+		expect(board.finalizeRemoved).toHaveBeenCalled();
 		
 	});
 
-	it("GameBoard.step()", function(){
+	it("GameBoard.draw()", function(){
 				
-		var obj1 = {};
-		spyOn(board,"draw");
-		board.draw(obj1);
-		expect(board.draw).toHaveBeenCalled();
+		var ctx = {};
+
+		spyOn(board,"iterate");
+
+		board.draw(ctx);
+
+		expect(board.iterate).toHaveBeenCalled();
 		
+	});
+
+	it("GameBoard.iterate", function(){
+		var aux1 = {draw : function(){},step: function(){}};
+		var aux2 = {draw : function(){},step: function(){}};
+
+		board.add(aux1);
+		board.add(aux2);
+
+		spyOn(board.objects[0], "draw");
+		spyOn(board.objects[1], "step");
+
+		board.iterate("draw",10);
+		board.iterate("step",10);
+
+		expect(board.objects[0].draw).toHaveBeenCalledWith(10);
+		expect(board.objects[1].step).toHaveBeenCalledWith(10);
+	
+	});
+
+	it("GameBoard.detect", function(){
+		var funcionchorra = function(){
+			if (this.num === 1){
+			  	return false;
+			}else{
+			  	return true;
+			};
+		};
+
+		var aux1 = {num : 1};
+		var aux2 = {num : 2};
+
+		board.add(aux1);
+		board.add(aux2);
+
+		var detectado = board.detect(funcionchorra);
+
+		expect(detectado).toBe(aux2);
+ 
 	});
 
 });

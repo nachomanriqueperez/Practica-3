@@ -1,3 +1,5 @@
+
+
 // Alien Invasion utiliza duck typing para implementar como dibujar
 // elementos en la pantalla (método draw()) y para que actualicen su
 // estado cada vez que el bucle de animación marca un nuevo paso
@@ -209,18 +211,21 @@ var GameBoard = function() {
 	// Convertimos en un array args (1..)
 	var args = Array.prototype.slice.call(arguments,1);
 
-	for(var i=0, len=this.objects.length; i<len;i++) {
-	    var obj = this.objects[i];
-	    obj[funcName].apply(obj,args)
-	}
+	this.objects.map(function(element){element[funcName].apply(element,args)});
     };
 
     // Devuelve el primer objeto de objects para el que func es true
     this.detect = function(func) {
-	for(var i = 0,val=null, len=this.objects.length; i < len; i++) {
-	    if(func.call(this.objects[i])) return this.objects[i];
+	
+	var array = this.objects.filter(function(element){if(func.call(element)){
+								return element;
+							  }});
+	if(array.length!= 0){
+		return array[0];
+	}else{
+		return false;
 	}
-	return false;
+	
     };
 
     // Cuando Game.loop() llame a step(), hay que llamar al método
