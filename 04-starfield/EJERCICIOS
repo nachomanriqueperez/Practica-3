@@ -1,0 +1,31 @@
+¿Cómo usar este material?:
+
+- Ejecuta el juego finalizado: http://cykod.github.io/AlienInvasion/
+
+- Para cada prototipo, primero leemos los tests, y los interpretamos
+  como especificaciones de los requisitos del prototipo
+
+- Después leemos el código y ejecutamos el prototipo: firefox
+  index.html
+  
+- Luego comprobamos si pasan los tests: firefox SpecRunner.html
+
+- Finalmente, realizamos cambios a los tests / código según requieran
+  los ejercicios
+
+
+
+EJERCICIOS
+
+1. Añade un nuevo plano con estrellas viajando a velocidad 200
+
+2. Añade llamadas a expect al test después para asegurarte de que se
+   llama a drawImage con los argumentos adecuados tras el paso step y
+   draw que viene en el test
+
+
+
+
+
+
+

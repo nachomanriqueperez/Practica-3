@@ -1,0 +1,159 @@
+¿Cómo usar este material?:
+
+- Ejecuta el juego finalizado: http://cykod.github.io/AlienInvasion/
+
+- Para cada prototipo, primero leemos los tests, y los interpretamos
+  como especificaciones de los requisitos del prototipo
+
+- Después leemos el código y ejecutamos el prototipo: firefox
+  index.html
+  
+- Luego comprobamos si pasan los tests: firefox SpecRunner.html
+
+- Finalmente, realizamos cambios a los tests / código según requieran
+  los ejercicios
+
+
+
+EJERCICIOS
+
+1. Vamos a aprender a añadir jasmine y jasmine-jquery a un proyecto desde cero.
+   Crea un nuevo directorio vacío. A continuación realiza los siguientes pasos:
+
+     1. Descarga jasmine-standalone-1.3.1.zip:
+     https://github.com/pivotal/jasmine/downloads
+
+     2. Descomprímelo y pon todo su contenido en tu nuevo
+     directorio. Deberías tener los siguientes ficheros y directorios:
+     SpecRunner.html, lib/, spec/, src/
+
+     En src/ están los ficheros con el código que vas a testar y en
+     spec/ los ficheros de test que prueban dicho código. En lib/
+     están las bibliotecas JavaScript que usa jasmine.
+
+     Con jasmine viene un ejemplo, con código fuente en src/ y tests
+     en spec/
+
+     3. Carga SpecRunner.html ejecutando firefox
+     SpecRunner.html. Todos los tests del ejemplo debería pasar (en
+     verde) si está bien instalado. Explora el ejemplo para entender
+     lo que hace.
+  
+     4. Ahora vamos a añadir jasmine-jquery, unas extensiones para
+     Jasmine que aportan matchers jQuery (las expresiones que pasamos
+     como parámetro a expect() ) y formas de crear fixtures (bancos de
+     ensayos) para HTML/CSS/JSON.
+
+     Descarga jasmine-jquery.js de esta url:
+     https://raw.github.com/velesin/jasmine-jquery/master/lib/jasmine-jquery.js
+     Copia el fichero debajo del directorio lib/
+
+     jasmine-jquery.js necesita jquery. Descargalo
+     (http://jquery.com/download/), o copialo de
+     01-canvas/jquery-1.10.2.js al subdirectorio lib/
+
+     5. Añade una referencia a jquery-1.10.2.js y a jasmine-jquery.js
+       en SpecRunner.html 
+
+      <script type="text/javascript" src="lib/jquery-1.10.2.js"></script>
+      <script type="text/javascript" src="lib/jasmine-jquery.js"></script>
+ 
+     6. Borra todos los ficheros del ejemplo: spec/PlayerSpec.js,
+     spec/SpecHelper.js, src/Player.js, src/Song.js
+
+     Elimina también de SpecRunner.html las referencias a dichos
+     ficheros:
+
+        <!-- include source files here... -->
+     **** BORRAR LAS DOS SIGUIENTES LINEAS ***
+        <script type="text/javascript" src="src/Player.js"></script>
+        <script type="text/javascript" src="src/Song.js"></script>
+
+        <!-- include spec files here... -->
+     **** BORRAR LAS DOS SIGUIENTES LINEAS ***
+        <script type="text/javascript" src="spec/SpecHelper.js"></script>
+        <script type="text/javascript" src="spec/PlayerSpec.js"></script>
+
+     7. Ahora vamos a añadir el código del prototipo 01-canvas que
+     queremos testar: copia los ficheros jquery-1.10.2.js, base.css,
+     index.html, game.js, images/sprites.png de 01-canvas/ a tu nuevo
+     directorio
+
+     8. Crea el directorio spec/javascripts/fixtures: 
+        mkdir -p spec/javascripts/fixtures
+
+     Copia en él el fichero
+     01-canvas/spec/javascripts/fixtures/index.html. Este fichero lo
+     usaremos en los test como banco de ensayos (fixture) para que
+     jasmine lo cargue y sobre él operen los tests.
+
+     9. El código JavaScript que vamos a testar lo ponemos en el
+     subdirectorio src. Como lo que queremos es testar código de
+     game.js que tenemos en la raiz de nuestro directorio, enlazamos
+     en src/ dicho fichero: 
+      cd src
+      ln -s ../game.js
+
+    10. Los tests para ese código los tenemos en el fichero
+    01-canvas/spec/canvasSpec.js. Copia ese fichero a tu
+    subdirectorio spec
+
+    11. Ahora tenemos que añadir referencias en SpecRunner.html tanto
+    al código que vamos a testar (src/game.js) como al código de los
+    tests (spec/canvasSpec.js):
+
+      <!-- include source files here... -->
+      <script type="text/javascript" src="src/game.js"></script>
+
+      <!-- Include spec files here... -->
+      <script type="text/javascript" src="spec/canvasSpec.js"></script>
+
+
+    12. Si has seguido todos los pasos tendrás estos contenidos en tu
+    nuevo directorio:
+	.
+	|___SpecRunner.html
+	|___base.css
+	|___game.js
+	|___images
+	| |___sprites.png
+	|___index.html
+	|___jquery-1.10.2.js
+	|___lib
+	| |___jasmine-1.3.1
+	| | |___MIT.LICENSE
+	| | |___jasmine-html.js
+	| | |___jasmine.css
+	| | |___jasmine.js
+	| |___jasmine-jquery.js
+	| |___jquery-1.10.2.js
+	|___spec
+	| |___canvasSpec.js
+	| |___javascripts
+	| | |___fixtures
+	| | | |___index.html
+	|___src
+	| |___game.js
+
+  13. Comprueba que los tests pasan, ejecutando firefox SpecRunner.html
+
+
+2. Consulta las páginas de jasmine (http://pivotal.github.io/jasmine/ )
+   y jasmine-jquery (https://github.com/velesin/jasmine-jquery)
+
+3. Comprueba que ocurre si no pones dentro de runs(){} los expect
+   it("dibuja imagenes en el contexto del canvas", function(){ ...
+
+4. Comprueba qué ocurre cuando comentas la linea waits() en ese mismo
+   test
+
+5. Añade más tests para comprobar que se está llamando a los drawImage
+   de game.js los argumentos adecuados. ¿Puedes poner un expect para
+   el primero de los argumentos de drawImage?
+
+
+
+
+
+
+
