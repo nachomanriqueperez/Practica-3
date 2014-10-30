@@ -65,21 +65,18 @@ describe("Missiles", function(){
 		});
 
 		it("PlayerMissile.step", function() {
-			expect(true).toBe(true);
+			misil = new PlayerMissile(1, 1);
+			var aux = misil.y;
+			var numnegativo = -10;
+			var tablero = {remove: function(){}};
+			misil.board = tablero;
+			spyOn(tablero, "remove");
+			misil.step(numnegativo);
+			expect(misil.y).toBe(aux + misil.vy*numnegativo);
+			expect(tablero.remove).not.toHaveBeenCalled();
+			misil.step(1+(-misil.h-misil.y)/misil.vy);
+			expect(tablero.remove).toHaveBeenCalledWith(misil);
 		});
 
-		var pm = new PlayerMissile(1,1000);
-		var dummyBoard = { remove: function(obj) {} };
-		pm.board = dummyBoard;
-		spyOn(dummyBoard, "remove");
-		//sin salirse de la pantalla
-		var ytemp = pm.y;
-		var dt = 1;
-		while( dt > (-pm.h-pm.y)/pm.vy ) { dt /= 10; }; //independiente de pm.vy
-		pm.step(dt);
-		expect(pm.y).toBe(ytemp + pm.vy*dt);
-		expect(dummyBoard.remove).not.toHaveBeenCalled();
-		//saliendose de la pantalla
-		pm.step(1+(-pm.h-pm.y)/pm.vy); //independiente de pm.vy
-		expect(dummyBoard.remove).toHaveBeenCalledWith(pm);
+		
 });

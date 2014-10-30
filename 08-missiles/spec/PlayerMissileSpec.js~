@@ -65,6 +65,18 @@ describe("Missiles", function(){
 		});
 
 		it("PlayerMissile.step", function() {
-			expect(true).toBe(true);
+			misil = new PlayerMissile(1, 1);
+			var aux = misil.y;
+			var numnegativo = -10;
+			var tablero = {remove: function(){}};
+			misil.board = tablero;
+			spyOn(tablero, "remove");
+			misil.step(numnegativo);
+			expect(misil.y).toBe(aux + misil.vy*numnegativo);
+			expect(tablero.remove).not.toHaveBeenCalled();
+			misil.step(1+(-misil.h-misil.y)/misil.vy);
+			expect(tablero.remove).toHaveBeenCalledWith(misil);
 		});
+
+		
 });
