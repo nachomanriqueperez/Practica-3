@@ -140,12 +140,11 @@ describe("Clase PlayerShip", function(){
     it ("disparar solo una vez con el espacio manteniendolo pulsado", function(){
     	nave = new PlayerShip();
 	tablero = new GameBoard();
-	board.add(nave);
-	spyOn(board,"add");
+	tablero.add(nave);
+	spyOn(tablero,"add");
 	Game.keys["fire"] = true;
-	nave.step(1);
-	nave.step(1);
-	expect(board.add.calls.length).toBe(2);
+	nave.step(5);
+	expect(tablero.add.calls.length).toBe(2);
     });
 
 	

@@ -143,8 +143,7 @@ describe("Clase PlayerShip", function(){
 	tablero.add(nave);
 	spyOn(tablero,"add");
 	Game.keys["fire"] = true;
-	nave.step(1);
-	nave.step(1);
+	nave.step(2);
 	expect(tablero.add.calls.length).toBe(2);
     });
 
